@@ -11,8 +11,9 @@ const AllNotes = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/notes");
-        // const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/notes`)
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/notes`
+        );
 
         setNotes(res.data);
       } catch (err) {

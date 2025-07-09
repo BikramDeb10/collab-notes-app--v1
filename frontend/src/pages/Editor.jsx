@@ -12,8 +12,7 @@ import {
 } from "../redux/notesSlice";
 import DeleteModal from "../components/DeleteModal";
 
-const socket = io("http://localhost:5000");
-// const socket = io(import.meta.env.VITE_SOCKET_URL);
+const socket = io(import.meta.env.VITE_SOCKET_URL);
 
 const Editor = () => {
   const [showModal, setShowModal] = useState(false);
@@ -28,8 +27,9 @@ const Editor = () => {
   // Fetch note from backend
   useEffect(() => {
     const fetchNote = async () => {
-      const res = await axios.get(`http://localhost:5000/api/notes/${id}`);
-      // const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/notes/${id}`)
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/notes/${id}`
+      );
       dispatch(setCurrentNote(res.data));
     };
     fetchNote();
@@ -66,14 +66,9 @@ const Editor = () => {
 
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(async () => {
-      await axios.put(
-        `http://localhost:5000/api/notes/${id}`,
-
-        {
-          content: note.content,
-        }
-      );
-      // await axios.put(`${import.meta.env.VITE_API_URL}/api/notes/${id}`, { content: note.content });
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/notes/${id}`, {
+        content: note.content,
+      });
       setLastSaved(new Date().toLocaleTimeString());
     }, 1000);
   }, [note?.content, id]);
@@ -86,8 +81,7 @@ const Editor = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/notes/${id}`);
-      // await axios.delete(`${import.meta.env.VITE_API_URL}/api/notes/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/notes/${id}`);
       toast.success("Note deleted successfully!");
       setShowModal(false);
       navigate("/all-notes");
