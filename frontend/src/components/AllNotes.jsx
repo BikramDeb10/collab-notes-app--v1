@@ -44,7 +44,7 @@ const AllNotes = () => {
         <h1 className="text-2xl font-bold mb-4">📚 All Notes</h1>
 
         {/* Search & Filter */}
-        <div className="flex gap-4 mb-4">
+        <div className="flex gap-4 mb-4 flex-wrap">
           <input
             type="text"
             placeholder="Search notes by title..."
